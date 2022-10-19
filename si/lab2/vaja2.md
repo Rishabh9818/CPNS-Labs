@@ -22,13 +22,13 @@ Ukaz [`journalctl`](https://www.man7.org/linux/man-pages/man1/journalctl.1.html)
 
 Ustvarimo dva navidezna računalnika kot smo to naredili pri prejšnjih vajah, kjer ima prvi dve omrežni kartici, kjer je prva povezana na omrežje `NAT` in druga na `Notranje omrežje`.
 
-![Nastavitev prve omrežne kartice na prvem navideznem računalniku na omrežje `NAT`.](vaja2-vbox1.png)
+![Nastavitev prve omrežne kartice na prvem navideznem računalniku na omrežje `NAT`.](slike/vaja2-vbox1.png)
 
-![Nastavitev druge omrežne kartice na prvem navideznem računalniku na `Notranje omrežje`.](vaja2-vbox2.png)
+![Nastavitev druge omrežne kartice na prvem navideznem računalniku na `Notranje omrežje`.](slike/vaja2-vbox2.png)
 
 Drugi ima pa eno omrežno kartico, ki je povezana na `Notranje omrežje`. Paziti moramo, da pri obeh navideznih računalnikih na omrežnih karticah z omrežjem `Notranje omrežje` izberemo enako ime, na primer `intnet`.
 
-![Nastavitev prve omrežne kartice na drugem navideznem računalniku na `Internal network`.](vaja2-vbox3.png)
+![Nastavitev prve omrežne kartice na drugem navideznem računalniku na `Internal network`.](slike/vaja2-vbox3.png)
 
 ### 2. Naloga
 
