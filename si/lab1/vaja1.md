@@ -1,6 +1,6 @@
-# 1. Vaja: Virtualizacija in nastavitve omrežja
+# 1. Vaja: Virtualizacija in nastavitev omrežja
 
-## Navodilo
+## Navodila
 
 1. Namestite poljuben hipernadzornik za virtualizacijo, na primer [VirtualBox](https://www.virtualbox.org/).
 2. V virtualno računalnik namestite poljubno distribucijo Linux operacijskega sistema, na primer [Debian](https://www.debian.org/).
@@ -38,7 +38,7 @@ Ukaz [`apt-get`](https://linux.die.net/man/8/apt-get) je upravljalec paketov, ki
 
 ### 1. Naloga
 
-Na operacijskih sistemih Windows in MacOS namestite hipernadzornik VirtualBox, tako da prenesete namestitveno datoteke z uradne [spletne strani](https://www.virtualbox.org/) in sledite navodilom med namestitvijo. Na operacijskem sistemu Linux, pa namestite VirtualBox iz repozitorijev vaše distribucije. Na distribucijah, ki so osnovane Debian-u to storimo z naslednjim ukazom:
+Na operacijskih sistemih Windows in MacOS namestite hipernadzornik VirtualBox, tako da prenesete namestitveno datoteke z uradne [spletne strani](https://www.virtualbox.org/) in sledite navodilom med namestitvijo. Na operacijskem sistemu Linux, pa namestite VirtualBox iz repozitorijev vaše distribucije. Na distribucijah, ki so osnovane Debian-u to storimo z upravljalcem paketov `apt`.
 
     apt install virtualbox
 
@@ -216,7 +216,7 @@ Nato poženemo namestitveni program in po uspešni namestitvi še ponovno zažen
 
 ### 3. Naloga
 
-Najlažje dobimo uporabno kopijo navideznega računalnika dobimo s postopkom kloniranja. Izvedemo ga tako, da z desnim klikom na navidezni računalnik v levem stolpcu v glavnem oknu VirtualBox-a opremo dodatni meni in kliknemo na možnost `Kloniraj ...`. Odpre se nam okno za izbiro nastavitev kloniranja. Določimo lahko `Ime`, `Mapo računanika`, `Upravljanje z MAC naslovi` in `Dodatne možnosti`. `Upravljanje z MAC naslovi` nam omogoča, da `Vključimo MAC naslove vseh omrežnih kartic`, da `Vključimo MAC naslove omrežnih kartic ki imajo omrežje nastavljeno na NAT` ali pa `Ustvarimo nove MAC naslove za vse omrežne kartice ne glede na nastavitve`. Na primer, za ime izberemo `Debian Clone`, za mapo v katerem bo shranjen navidezni računalnik izberemo `/home/USER/VirtualBox VMs`, izberemo, da ustvarimo nove MAC naslove za vse omrežne kartice ne glede na nastavitve in pustimo dodatne možnosti odkljukane. Pritisnemo gumb `Naprej`.
+Najlažje dobimo uporabno kopijo navideznega računalnika dobimo s postopkom kloniranja. Izvedemo ga tako, da z desnim klikom na navidezni računalnik v levem stolpcu v glavnem oknu VirtualBox-a opremo dodatni meni in kliknemo na možnost `Kloniraj ...`. Odpre se nam okno za izbiro nastavitev kloniranja. Določimo lahko `Ime`, `Mapo računanika`, `Upravljanje z MAC naslovi` in `Dodatne možnosti`. `Upravljanje z MAC naslovi` nam omogoča, da `Vključimo MAC naslove vseh omrežnih kartic` (angl. Include all network adapter MAC addresses), da `Vključimo MAC naslove omrežnih kartic ki imajo omrežje nastavljeno na NAT` (angl. Include only NAT network adapter MAC addresses) ali pa `Ustvarimo nove MAC naslove za vse omrežne kartice ne glede na nastavitve` (angl. Generate new MAC addresses for all network adapters). Na primer, za ime izberemo `Debian Clone`, za mapo v katerem bo shranjen navidezni računalnik izberemo `/home/USER/VirtualBox VMs`, izberemo, da ustvarimo nove MAC naslove za vse omrežne kartice ne glede na nastavitve in pustimo dodatne možnosti odkljukane. Pritisnemo gumb `Naprej`.
 
 ![Izbira nastavitev kloniranja.](slike/vaja1-clone1.png)
 
@@ -230,13 +230,25 @@ Spodaj predstavimo štiri možne nastavitve omrežja, ki nam vsaj delno omogoča
 
 Pod zavihkom `Omrežje` lahko dodelimo do štiri `Vmesnike` našemu virtualnemu računalniku. Na primer, `Vmesnik 1` vsem našim navideznim računalnikom nastavimo na `NAT`, `Notranje omrežje`, `Povezan vmesnik` ali `Omrežje NAT`.
 
-Možnost `NAT` nam nastavi preslikovanje IP naslovov iz omrežja našega fizičnega računalnika v omrežje našega navideznega računalnika s spreminjanjem IP naslovov v glavah IP paketov ([NAT - Network address translation](https://en.wikipedia.org/wiki/Network_address_translation)). V tem primeru ima naš navidezni računalnik privzeto svoje omrežje in ne more direktno dostopati do drugih navideznih računalnikov, našega fizičnega računalnika in fizičnega omrežja. Pogojno lahko omogočimo dostop za določene aplikacije preko odpiranja določenih omrežnih vrat (port forwarding).
+Možnost `NAT` nam nastavi preslikovanje IP naslovov iz omrežja našega fizičnega računalnika v omrežje našega navideznega računalnika s spreminjanjem IP naslovov v glavah IP paketov ([NAT - Network address translation](https://en.wikipedia.org/wiki/Network_address_translation)). V tem primeru ima naš navidezni računalnik privzeto svoje omrežje in ne more direktno dostopati do drugih navideznih računalnikov, našega fizičnega računalnika in fizičnega omrežja. Pogojno lahko omogočimo dostop za določene aplikacije preko odpiranja določenih omrežnih vrat (port forwarding), ki jih nastavljamo tako da kliknemo na zavihek `Napredno` in nato kliknemo na gumb `Posredovanje vrat`. Posamezna vrata odpremo, tako da nastavimo `Ime`, `Protokol`, `IP gostitelja`, `Vrata gostitelja`, `IP gosta` in `Vrata gosta`.
 
 ![Nastavitveni zavihek `Omrežje` kjer lahko nastavimo, da `Vmesnik 1` uporablja svoje `NAT` omrežje.](slike/vaja1-vbox9.png)
+
+![Opiranje vrat pri `NAT` omrežju.](slike/vaja1-vbox19.png)
 
 Možnost `Notranje omrežje` nam poveže več navideznih računalnikov v omrežje brez usmerjevalnika, kjer morajo sami poskrbeti za vzpostavitev IP naslovov. Navidezni računalnik se po pravilni nastavitvi omrežja vidijo med seboj, vendar nimajo dostopa do spleta in drugih omrežij, razen če en navidezni računalnik deluje tudi kot usmerjevalnik. 
 
 ![Nastavitveni zavihek `Omrežje` kjer lahko nastavimo, da `Vmesnik 1` uporablja skupno `Notranje omrežje` z imenom `intnet`.](slike/vaja1-vbox17.png)
+
+IP naslov lahko na obeh navideznih računalnikih nastavimo z ukazom `ip`, kjer pravilno nastavimo IP naslova, omrežno masko ter omrežni kartici, da omogočimo povezljivost.
+
+Na prvem navideznem računalniku z omrežno kartico `enp0s3` nastavimo omrežni IP naslov na primer na `192.168.1.1/24`.
+
+    ip addr add 192.168.1.1/24 dev enp0s3
+
+Na drugem navideznem računalniku z omrežno kartico `enp0s3` nastavimo omrežni IP naslov v istem omrežju kot pri prvemu navideznemu računalniku, na primer na `192.168.1.2/24`.
+
+    ip addr add 192.168.1.2/24 dev enp0s3
 
 Možnost `Povezan vmesnik` nam nastavi deljenje omrežnega vmesnika našega fizičnega računalnik z navideznim računalnikom, tako da oba pridobita IP naslov iz fizičnega omrežja. Naš navidezni računalnik deluje, kot da je priključen v fizično omrežje in ima privzeto dostop do vsem računalnikov v tem omrežju.
 
@@ -250,7 +262,7 @@ Možnost `Omrežje NAT` nastavi prav tako preslikovanje IP naslovov iz omrežja 
 
 ![Nastavitveni zavihek `Omrežje` kjer lahko ustvarimo, upravljamo in izbrišemo NAT omrežja.](slike/vaja1-vbox12.png)
 
-Privzete vrednosti NAT omrežja zadostujejo za naše potrebe, lahko pa jih spremenimo tako, da izberemo željeno NAT omrežje in kliknemo na gumb z ikono omrežnega vmesnika in z oranžnim simbolom za zobnik. Izbrano NAT omrežje lahko tudi izbrišemo, tako da pritisnemo na gumb z ikono omrežnega vmesnika in z rdečim simbolom za križ.
+Privzete vrednosti NAT omrežja zadostujejo za naše potrebe, lahko pa jih spremenimo tako, da izberemo željeno NAT omrežje in kliknemo na gumb z ikono omrežnega vmesnika in z oranžnim simbolom za zobnik. Prav tako lahko odpiramo vrata za celotno NAT omrežje. Izbrano NAT omrežje lahko tudi izbrišemo, tako da pritisnemo na gumb z ikono omrežnega vmesnika in z rdečim simbolom za križ.
 
 ![Nastavitveni zavihek `Omrežje` kjer lahko podrobno upravljamo parametre NAT omrežja.](slike/vaja1-vbox13.png)
 
