@@ -3,7 +3,7 @@
 ## Navodila
 
 1. Postavite dva navidezna računalnika. Prvi ima dve omrežni kartici, kjer je prva povezana na omrežje `NAT` in druga na `Notranje omrežje`. Drugi ima eno omrežno kartico, ki je povezana na`Notranje omrežje`.
-2. Postavite [Dynamic Host Configuration Protocol (DHCP)](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) strežnik na prvem navideznem računalniku, ki ima dve omrežno kartici. DHCP naj deluje na omrežju `Notranje omrežje` in omogoča drugim navideznim računalnikov avtomatsko pridobivanje omrežnih naslovov.
+2. Postavite Dynamic Host Configuration Protocol (DHCP) strežnik na prvem navideznem računalniku, ki ima dve omrežno kartici. DHCP naj deluje na omrežju `Notranje omrežje` in omogoča drugim navideznim računalnikov avtomatsko pridobivanje omrežnih naslovov.
 3. Poskrbite, da navidezni računalnik, ki je povezano samo v `Notranje omrežje` lahko dostopa do spleta preko navideznega računalnika na katerem teče DHCP strežnik.
 
 ## Dodatne informacije
@@ -68,7 +68,7 @@ Da se nastavitve upoštevajo, ponovno zaženemo delovanja omrežnih kartic na na
 
     systemctl restart networking.service
 
-Sedaj smo pripravili vse potrebno, da namestimo in nastavimo DHCP strežnik, ki bo dodeljeval IP omrežne naslove avtomatsko vsem računalnikom v omrežju `Notranje omrežje`. Namestimo na primer, implementacijo DHCP strežnika `isc-dhcp-server`.
+Sedaj smo pripravili vse potrebno, da namestimo in nastavimo [DHCP](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) strežnik, ki bo dodeljeval IP omrežne naslove avtomatsko vsem računalnikom v omrežju `Notranje omrežje`. Specifikacijo protokola lahko najdemo v [RFC2131](https://www.rfc-editor.org/rfc/rfc2131). Namestimo na primer, implementacijo DHCP strežnika `isc-dhcp-server`.
 
     apt update
     apt install isc-dhcp-server
@@ -83,14 +83,14 @@ V datoteki `/etc/default/isc-dhcp-server` nastavimo omrežno kartico na kateri n
 
     INTERFACESv4="enp0s8"
 
-V datoteki `/etc/dhcp/dhcpd.conf` pa nastavimo katero omrežje bo upravljal DHCP strežnik, torej katere IP omrežne naslove bo dodeljeval, kako bo potekalo usmerjanje in ostale lastnosti omrežja.
+V datoteki `/etc/dhcp/dhcpd.conf` pa nastavimo katero omrežje bo upravljal DHCP strežnik, torej katere IP omrežne naslove bo dodeljeval omrežnim napravam, IP naslov glavnega prehoda omrežja (angl. gateway), IP naslov [DNS](https://en.wikipedia.org/wiki/Domain_Name_System) strežnika (na primer javni Cloudflare DNS strežnik z IP naslovom `1.1.1.1`) ter tudi ostale lastnosti omrežja.
 
     nano /etc/dhcp/dhcpd.conf
 	
     subnet 10.0.1.0 netmask 255.255.255.0 {
 	  range 10.0.1.100 10.0.1.200;
 	  option routers 10.0.1.1;
-	  option domain-name-servers 10.0.1.1;
+	  option domain-name-servers 1.1.1.1;
 	}
 
 Da se nastavitve upoštevajo, ponovno zaženemo `isc-dhcp-server` DHCP strežnik.
@@ -148,6 +148,10 @@ Nato pa še nastavimo preslikovanje IP omrežni naslovov, ki ga bo izvedel naš 
 
     iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
 
+Vnos pravila v `iptables` lahko tudi preverimo.
+
+    sudo iptables -t nat -L -v
+
 Sedaj ponovno preverimo dostopnost lokalnih in javnih IP omrežnih naslovov.
 
     ping 10.0.1.1 -c 4
@@ -173,3 +177,8 @@ Sedaj ponovno preverimo dostopnost lokalnih in javnih IP omrežnih naslovov.
     --- 8.8.8.8 ping statistics ---
     4 packets transmitted, 4 received, 0% packet loss, time 3004ms
     rtt min/avg/max/mdev = 13.862/15.541/17.444/1.313 ms
+
+Pravila, ki jih vnesemo v `iptables` se ne ohranijo ob ponovnem zagonu sistema. Z uporabo paketa `iptables-persistent`, jih lahko shranimo ter omogočimo, da se avtomatsko upoštevajo ob ponovnem zagonu.
+
+    apt install iptables-persistent
+    iptables-save > /etc/iptables/rules.v4

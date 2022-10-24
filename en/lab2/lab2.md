@@ -3,7 +3,7 @@
 ## Instructions
 
 1. Set up two virtual machines. The first has two network adapters, where the first is connected to the `NAT` network and the second to the `Internal network`. The other has one network adapter connected to the `Internal network`.
-2. Place a [Dynamic Host Configuration Protocol (DHCP)](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) server on the first virtual machine that has two network adapters. DHCP should run on the `Internal network` and allow other virtual machines to automatically obtain network addresses.
+2. Place a Dynamic Host Configuration Protocol (DHCP) server on the first virtual machine that has two network adapters. DHCP should run on the `Internal network` and allow other virtual machines to automatically obtain network addresses.
 3. Make sure that the virtual computer that is connected only to the `Internal network` can access the Internet through the virtual computer on which the DHCP server is running.
 
 ## Additional information
@@ -68,7 +68,7 @@ For the settings to be taken into account, we restart the operation of the netwo
 
     systemctl restart networking.service
 
-We have now prepared everything necessary to install and configure the DHCP server, which will assign IP network addresses automatically to all computers in the `Internal network`. For example, let's install the DHCP server implementation `isc-dhcp-server`.
+We have now prepared everything necessary to install and configure the [DHCP](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) server, which will assign IP network addresses automatically to all computers in the `Internal network`. The specification of the protocol can be found in [RFC2131](https://www.rfc-editor.org/rfc/rfc2131). For example, let's install the DHCP server implementation `isc-dhcp-server`.
 
     apt update
     apt install isc-dhcp-server
@@ -83,14 +83,14 @@ In the `/etc/default/isc-dhcp-server` file, set the network adapter on which the
 
     INTERFACESv4="enp0s8"
 
-In the file `/etc/dhcp/dhcpd.conf` we set which network will be managed by the DHCP server, i.e. which IP network addresses it will assign, how routing will take place and other network properties.
+In the file `/etc/dhcp/dhcpd.conf`, we set which network will be operated by the DHCP server, i.e. which IP network addresses will be assigned network devices, the IP address of the main gateway, the [DNS](https://en.wikipedia.org/wiki/Domain_Name_System) server (for example, the public Cloudflare DNS server with the IP address `1.1.1.1`) and other network properties.
 
     nano /etc/dhcp/dhcpd.conf
     
     subnet 10.0.1.0 netmask 255.255.255.0 {
       range 10.0.1.100 10.0.1.200;
       option routers 10.0.1.1;
-      option domain-name-servers 10.0.1.1;
+      option domain-name-servers 1.1.1.1;
     }
 
 For the settings to take effect, restart the `isc-dhcp-server' DHCP server.
@@ -148,6 +148,10 @@ Next, we set up the translation of IP network addresses, which will be performed
 
     iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
 
+We can also check the entry of the rule in `iptables`.
+
+    sudo iptables -t nat -L -v
+
 Now let's check again the availability of local and public IP network addresses.
 
     ping 10.0.1.1 -c 4
@@ -173,3 +177,8 @@ Now let's check again the availability of local and public IP network addresses.
     --- 8.8.8.8 ping statistics ---
     4 packets transmitted, 4 received, 0% packet loss, time 3004ms
     rtt min/avg/max/mdev = 13.862/15.541/17.444/1.313 ms
+
+The rules we enter in `iptables` are not maintained when the system restarts. By using the `iptables-persistent` package, we can store them and enable them to be automatically taken into account at restart.
+
+    apt install iptables-persistent
+    iptables-save > /etc/iptables/rules.v4
