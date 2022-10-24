@@ -16,6 +16,8 @@ Požarni zid [`iptables`](https://linux.die.net/man/8/iptables) oz. [`nf_tables`
 
 Ukaz [`journalctl`](https://www.man7.org/linux/man-pages/man1/journalctl.1.html) nam omogoča branje `systemd` beležk oz logov.
 
+Ukaz [`systemctl`](https://www.man7.org/linux/man-pages/man1/systemctl.1.html) nam omogoča upravljanje s stanjem `systemd` sistema in upravljanje s programi, ki se izvajajo v ozadju.
+
 ## Podrobna navodila
 
 ### 1. Naloga

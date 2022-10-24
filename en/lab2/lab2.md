@@ -16,6 +16,8 @@ Firewall [`iptables`](https://linux.die.net/man/8/iptables) or [`nf_tables`](htt
 
 The command [`journalctl`](https://www.man7.org/linux/man-pages/man1/journalctl.1.html) allows us to read `systemd` logs.
 
+The ['systemctl'](https://www.man7.org/linux/man-pages/man1/systemctl.1.html) command allows us to manage `systemd` system and manage programs running in the background.
+
 ## Detailed instructions
 
 ### 1. Task
