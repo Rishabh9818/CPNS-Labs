@@ -114,12 +114,11 @@ Da preverimo delovanje našega DHCP strežnika, sedaj poženemo drugi navidezni 
         inet 10.0.1.100/24 brd 10.0.1.255 scope global dynamic noprefixroute enp0s3 valid_lft 514sec preferred_lft 514sec
         inet6 fe80::a00:27ff:fe40:7ad/64 scope link noprefixroute valid_lft forever preferred_lft forever
 
-Na drugemu navideznemu računalniku lahko DNS strežnike dodamo tudi ročno v datoteki `/etc/resolve.conf`.
+Na drugemu navideznemu računalniku lahko DNS strežnike dodamo tudi ročno v datoteki `/etc/dhcp/dhclient.conf`.
 
-    nano /etc/resolve.conf
+    nano /etc/dhcp/dhclient.conf
 
-    nameserver 1.1.1.1
-
+    prepend domain-name-servers 1.1.1.1;
 
 Na drugem navideznem računalniku, lahko ponovno zaprosimo DHCP za nov IP naslov in tako pridobimo nove nastavitve za DNS.
 

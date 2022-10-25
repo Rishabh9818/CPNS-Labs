@@ -114,11 +114,11 @@ To check the operation of our DHCP server, we now start the second virtual compu
         inet 10.0.1.100/24 brd 10.0.1.255 scope global dynamic noprefixroute enp0s3 valid_lft 514sec preferred_lft 514sec
         inet6 fe80::a00:27ff:fe40:7ad/64 scope link noprefixroute valid_lft forever preferred_lft forever
 
-On the second virtual computer, you can also manually add DNS servers in the `/etc/resolve.conf` file.
+On the second virtual computer, you can also manually add DNS servers in the `/etc/dhcp/dhclient.conf` file.
 
-    nano /etc/resolve.conf
+    nano /etc/dhcp/dhclient.conf
 
-    nameserver 1.1.1.1
+    prepend domain-name-servers 1.1.1.1;
 
 On the second virtual machine, we can renew DHCP for a new IP address to also obtain new DNS settings.
 
