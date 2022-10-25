@@ -18,6 +18,8 @@ The command [`journalctl`](https://www.man7.org/linux/man-pages/man1/journalctl.
 
 The ['systemctl'](https://www.man7.org/linux/man-pages/man1/systemctl.1.html) command allows us to manage `systemd` system and manage programs running in the background.
 
+The ['dhclient'] (https://linux.die.net/man/8/dhclient) command allows us to manage DHCP as a client.
+
 ## Detailed instructions
 
 ### 1. Task
@@ -70,7 +72,7 @@ For the settings to be taken into account, we restart the operation of the netwo
 
     systemctl restart networking.service
 
-We have now prepared everything necessary to install and configure the [DHCP](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) server, which will assign IP network addresses automatically to all computers in the `Internal network`. The specification of the protocol can be found in [RFC2131](https://www.rfc-editor.org/rfc/rfc2131). For example, let's install the DHCP server implementation `isc-dhcp-server`.
+We have now prepared everything necessary to install and configure the [DHCP](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) server, which will assign IP network addresses automatically to all computers in the `Internal network`. The specification of the protocol can be found in [RFC2131](https://www.rfc-editor.org/rfc/rfc2131). With the package manager we can search by the names of packages that can be installed with the command `apt search NAME`. For example, let's install the DHCP server implementation `isc-dhcp-server`.
 
     apt update
     apt install isc-dhcp-server
@@ -111,6 +113,16 @@ To check the operation of our DHCP server, we now start the second virtual compu
         link/ether 08:00:27:40:07:ad brd ff:ff:ff:ff:ff:ff
         inet 10.0.1.100/24 brd 10.0.1.255 scope global dynamic noprefixroute enp0s3 valid_lft 514sec preferred_lft 514sec
         inet6 fe80::a00:27ff:fe40:7ad/64 scope link noprefixroute valid_lft forever preferred_lft forever
+
+On the second virtual computer, you can also manually add DNS servers in the `/etc/resolve.conf` file.
+
+    nano /etc/resolve.conf
+
+    nameserver 1.1.1.1
+
+On the second virtual machine, we can renew DHCP for a new IP address to also obtain new DNS settings.
+
+    dhclient -r enp0s3
 
 ### 3. Task
 

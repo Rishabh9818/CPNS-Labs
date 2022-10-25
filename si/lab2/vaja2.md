@@ -18,6 +18,8 @@ Ukaz [`journalctl`](https://www.man7.org/linux/man-pages/man1/journalctl.1.html)
 
 Ukaz [`systemctl`](https://www.man7.org/linux/man-pages/man1/systemctl.1.html) nam omogoča upravljanje s stanjem `systemd` sistema in upravljanje s programi, ki se izvajajo v ozadju.
 
+Ukaz [`dhclient`](https://linux.die.net/man/8/dhclient) nam omogoča upravljanje s protokolom DHCP s strani klienta.
+
 ## Podrobna navodila
 
 ### 1. Naloga
@@ -70,7 +72,7 @@ Da se nastavitve upoštevajo, ponovno zaženemo delovanja omrežnih kartic na na
 
     systemctl restart networking.service
 
-Sedaj smo pripravili vse potrebno, da namestimo in nastavimo [DHCP](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) strežnik, ki bo dodeljeval IP omrežne naslove avtomatsko vsem računalnikom v omrežju `Notranje omrežje`. Specifikacijo protokola lahko najdemo v [RFC2131](https://www.rfc-editor.org/rfc/rfc2131). Namestimo na primer, implementacijo DHCP strežnika `isc-dhcp-server`.
+Sedaj smo pripravili vse potrebno, da namestimo in nastavimo [DHCP](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) strežnik, ki bo dodeljeval IP omrežne naslove avtomatsko vsem računalnikom v omrežju `Notranje omrežje`. Specifikacijo protokola lahko najdemo v [RFC2131](https://www.rfc-editor.org/rfc/rfc2131). Z upravljalcem paketov lahko iščemo po imenih paketov, ki jih lahko namestimo z ukazom `apt search NAME`. Namestimo na primer, implementacijo DHCP strežnika `isc-dhcp-server`.
 
     apt update
     apt install isc-dhcp-server
@@ -111,6 +113,17 @@ Da preverimo delovanje našega DHCP strežnika, sedaj poženemo drugi navidezni 
         link/ether 08:00:27:40:07:ad brd ff:ff:ff:ff:ff:ff
         inet 10.0.1.100/24 brd 10.0.1.255 scope global dynamic noprefixroute enp0s3 valid_lft 514sec preferred_lft 514sec
         inet6 fe80::a00:27ff:fe40:7ad/64 scope link noprefixroute valid_lft forever preferred_lft forever
+
+Na drugemu navideznemu računalniku lahko DNS strežnike dodamo tudi ročno v datoteki `/etc/resolve.conf`.
+
+    nano /etc/resolve.conf
+
+    nameserver 1.1.1.1
+
+
+Na drugem navideznem računalniku, lahko ponovno zaprosimo DHCP za nov IP naslov in tako pridobimo nove nastavitve za DNS.
+
+    dhclient -r enp0s3
 
 ### 3. Naloga
 
