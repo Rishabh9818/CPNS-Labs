@@ -232,9 +232,9 @@ Under the `Network` tab, we can assign up to four network adapters to our virtua
 
 The `NAT` option sets us up to translate IP addresses from the network of our physical computer to the network of our virtual computer by changing the IP addresses in the IP packet headers ([NAT - Network address translation](https://en.wikipedia.org/wiki/Network_address_translation) ). In this case, our virtual computer has its network by default and cannot directly access other virtual computers, our physical computer and the physical network. We can conditionally enable access for certain applications by opening certain network ports (port forwarding), which we set by clicking on the `Advanced` tab and then clicking on the `Port forwarding` button. We forward individual ports by setting `Name`, `Protocol`, `Host IP`, `Host Port`, `Guest IP` and `Guest Port`.
 
-![Settings tab ``Network'' where we can set that `Adapter 1` uses its own `NAT` network.](images/lab1-vbox9.png)
+![Settings tab `Network` where we can set that `Adapter 1` uses its own `NAT` network.](images/lab1-vbox9.png)
 
-![Opening the port in the ``NAT'' network.](images/lab1-vbox19.png)
+![Opening the port in the `NAT` network.](images/lab1-vbox19.png)
 
 The `Internal network` option connects several virtual computers to a network without a router, where they have to take care of establishing IP addresses themselves. The virtual computers can see each other after the network is set up correctly, but cannot access the web or other networks unless one virtual computer also acts as a router.
 

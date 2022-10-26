@@ -81,6 +81,14 @@ Po koncu namestitve nam DHCP strežni sporoči napako, da se ni mogel zagnati. D
 
     journalctl -xe -n 100
 
+Beležkam Linux operacijskega sistema v `/var/log/syslog` lahko sledimo tudi v realnem času.
+
+    tail -f /var/log/syslog
+
+Ali.
+
+    less /var/log/syslog    # (in pritisnemo F na tipkovnici)
+
 V datoteki `/etc/default/isc-dhcp-server` nastavimo omrežno kartico na kateri naj deluje `isc-dhcp-server` DHCP strežnik.
 
     nano /etc/default/isc-dhcp-server

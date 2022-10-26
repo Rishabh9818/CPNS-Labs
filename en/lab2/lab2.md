@@ -81,6 +81,14 @@ After the installation, the DHCP server gives us an error that it could not star
 
     journalctl -xe -n 100
 
+We can also follow the Linux OS logs stored in `/var/log/syslog` in real-time.
+
+    tail -f /var/log/syslog
+
+Or.
+
+    less /var/log/syslog    # (and press the F key on the keyboard)
+
 In the `/etc/default/isc-dhcp-server` file, set the network adapter on which the `isc-dhcp-server` DHCP server should run.
 
     nano /etc/default/isc-dhcp-server
