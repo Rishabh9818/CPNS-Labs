@@ -230,11 +230,29 @@ Spodaj predstavimo štiri možne nastavitve omrežja, ki nam vsaj delno omogoča
 
 Pod zavihkom `Omrežje` lahko dodelimo do štiri `Vmesnike` našemu virtualnemu računalniku. Na primer, `Vmesnik 1` vsem našim navideznim računalnikom nastavimo na `NAT`, `Notranje omrežje`, `Povezan vmesnik` ali `Omrežje NAT`.
 
-Možnost `NAT` nam nastavi preslikovanje IP naslovov iz omrežja našega fizičnega računalnika v omrežje našega navideznega računalnika s spreminjanjem IP naslovov v glavah IP paketov ([NAT - Network address translation](https://en.wikipedia.org/wiki/Network_address_translation)). V tem primeru ima naš navidezni računalnik privzeto svoje omrežje in ne more direktno dostopati do drugih navideznih računalnikov, našega fizičnega računalnika in fizičnega omrežja. Pogojno lahko omogočimo dostop za določene aplikacije preko odpiranja določenih omrežnih vrat (port forwarding), ki jih nastavljamo tako da kliknemo na zavihek `Napredno` in nato kliknemo na gumb `Posredovanje vrat`. Posamezna vrata odpremo, tako da nastavimo `Ime`, `Protokol`, `IP gostitelja`, `Vrata gostitelja`, `IP gosta` in `Vrata gosta`.
+Možnost `NAT` nam nastavi preslikovanje IP naslovov iz omrežja našega fizičnega računalnika v omrežje našega navideznega računalnika s spreminjanjem IP naslovov v glavah IP paketov ([NAT - Network address translation](https://en.wikipedia.org/wiki/Network_address_translation)). V tem primeru ima naš navidezni računalnik privzeto svoje omrežje in ne more direktno dostopati do drugih navideznih računalnikov, našega fizičnega računalnika in fizičnega omrežja. Pogojno lahko omogočimo dostop za določene aplikacije preko odpiranja določenih omrežnih vrat (port forwarding). 
 
 ![Nastavitveni zavihek `Omrežje` kjer lahko nastavimo, da `Vmesnik 1` uporablja svoje `NAT` omrežje.](slike/vaja1-vbox9.png)
 
-![Opiranje vrat pri `NAT` omrežju.](slike/vaja1-vbox19.png)
+Omrežna vrata nastavljamo tako da kliknemo na zavihek `Napredno` in nato kliknemo na gumb `Posredovanje vrat`.
+
+![Nastavitveni zavihek `Napredno` kjer lahko nastavimo posredovanje vrat v `NAT` omrežju.](slike/vaja1-vbox19.png)
+
+Posamezna vrata odpremo, tako da nastavimo `Ime`, `Protokol`, `IP gostitelja`, `Vrata gostitelja`, `IP gosta` in `Vrata gosta`.
+
+![Nastavitveni meni za nastavljanje posredovanja vrat v `NAT` omrežju.](slike/vaja1-vbox20.png)
+
+Dostop do navideznega računalnika z varno ukazno lupino (angl. Secure Shell - SSH) preko omrežja `NAT` lahko izvedemo s posredovanjem vrat. Na navideznem računalniku namestimo SSH strežnik.
+
+    apt install openssh-server
+
+Sedaj posredujemo vrata, tako da nastavimo `Ime` na poljubno ime, `Protokol` na `TCP`, `IP gostitelja` na IP naslov našega fizičnega računalnika, `Vrata gostitelja` na poljubna vrata, ki jih ne uporabljajo že druge aplikacije, na primer `2222`, `IP gosta` na IP naslov omrežne kartice navideznega računalnika, ki je povezan v omrežje `NAT` in `Vrata gosta` na vrata `22`, ki jih privzeto uporablja SSH strežnik.
+
+![Nastavitev posredovanja vrat v `NAT` omrežju za uporabo SSH.](slike/vaja1-vbox21.png)
+
+Delovanje preskusimo, tako da se povežemo iz ukazne vrstice fizičnega računalnika s SSH na navidezni računalnik in navedemo omrežna vrata, katera smo posredovali, uporabnika s katerim se bomo v navidezni računalnik prijavili in IP naslov fizičnega računalnika.
+
+    ssh -p 2222 USER@IP_OF_THE_PHYSICAL_COMPUTER
 
 Možnost `Notranje omrežje` nam poveže več navideznih računalnikov v omrežje brez usmerjevalnika, kjer morajo sami poskrbeti za vzpostavitev IP naslovov. Navidezni računalnik se po pravilni nastavitvi omrežja vidijo med seboj, vendar nimajo dostopa do spleta in drugih omrežij, razen če en navidezni računalnik deluje tudi kot usmerjevalnik. 
 

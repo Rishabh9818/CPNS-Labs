@@ -87,7 +87,7 @@ Beležkam Linux operacijskega sistema v `/var/log/syslog` lahko sledimo tudi v r
 
 Ali.
 
-    less /var/log/syslog    # (in pritisnemo F na tipkovnici)
+    less /var/log/syslog    # (in pritisnemo tipko F na tipkovnici)
 
 V datoteki `/etc/default/isc-dhcp-server` nastavimo omrežno kartico na kateri naj deluje `isc-dhcp-server` DHCP strežnik.
 

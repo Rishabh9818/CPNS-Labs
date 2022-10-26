@@ -81,8 +81,9 @@ Napišemo preprost HTTP strežnik, ki na zahtevo `GET` preprosto vrne zahtevano 
 
     file=$( echo $request | awk '$1 == "GET" { print $2 }' )
 
-    echo -ne "HTTP/1.1 200 OK\r\n"
-    echo -ne "Content-Length: $(wc -c < "$1$file")\r\n\r\n"
+    echo "HTTP/1.1 200 OK"
+    echo "Content-Length: $(wc -c < $1$file)"
+    echo ""
     cat $1$file
 
 Preverimo pravice za izvajanje našega HTTP strežnika in jih omogočimo.

@@ -81,8 +81,9 @@ Let's write a simple HTTP server that simply returns the requested HyperText Mar
 
     file=$( echo $request | awk '$1 == "GET" { print $2 }' )
 
-    echo -ne "HTTP/1.1 200 OK\r\n"
-    echo -ne "Content-Length: $(wc -c < "$1$file")\r\n\r\n"
+    echo "HTTP/1.1 200 OK"
+    echo "Content-Length: $(wc -c < $1$file)"
+    echo ""
     cat $1$file
 
 Let's check the execution rights of our HTTP server and enable them.
