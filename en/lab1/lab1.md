@@ -230,7 +230,7 @@ Below we present four possible network settings that at least partially allow us
 
 Under the `Network` tab, we can assign up to four network adapters to our virtual computer. For example, we set the `Adapter 1` of all our VMs to `NAT`, `Internal Network`, `Bridged Adapter` or `NAT Network`.
 
-The `NAT` option sets us up to translate IP addresses from the network of our physical computer to the network of our virtual computer by changing the IP addresses in the IP packet headers ([NAT - Network address translation](https://en.wikipedia.org/wiki/Network_address_translation) ). In this case, our virtual computer has its network by default and cannot directly access other virtual computers, our physical computer and the physical network. Conditionally, we can provide access for specific applications by forwarding specific ports. 
+The `NAT` option sets us up to translate IP addresses from the network of our physical computer to the network of our virtual computer by changing the IP addresses in the IP packet headers ([NAT - Network address translation](https://en.wikipedia.org/wiki/Network_address_translation) ). In this case, our virtual computer has its network by default and cannot directly access other virtual computers, our physical computer and the physical network. Conditionally, we can provide access to specific applications by forwarding specific ports. 
 
 ![The `Network` setting tab where we can set that `Interface 1` uses a `NAT` network.](images/lab1-vbox9.png)
 
@@ -242,7 +242,7 @@ Each port is forwarded by setting the `Name`, `Protocol`, `Host IP`, `Host Port`
 
 ![Menu for setting port forwarding on the `NAT` network.](images/lab1-vbox20.png)
 
-Accessing a virtual computer with a secure command shell (SSH) can be carried out via the `NAT` network by port forwarding. We install a SSH server on the virtual machine.
+Accessing a virtual computer with a secure command shell (SSH) can be carried out via the `NAT` network by port forwarding. We install an SSH server on the virtual machine.
 
     apt install openssh-server
 
@@ -250,7 +250,7 @@ We now forward the port by setting the `Name` to any name, `Protocol` to `TCP`, 
 
 ![Set port forwarding on the 'NAT' network for using SSH.](images/lab1-vbox21.png)
 
-We test the forwarded port by connecting from the physical computer's command line using SSH to the virtual machine and specifying the network port we forwarded on physical computer, the user who will be used to log in the virtual machine and the IP address of the physical computer.
+We test the forwarded port by connecting from the physical computer's command line using SSH to the virtual machine and specifying the network port we forwarded on the physical computer, the user who will be used to log in to the virtual machine and the IP address of the physical computer.
 
     ssh -p 2222 USER@IP_OF_THE_PHYSICAL_COMPUTER
 
