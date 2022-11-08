@@ -72,7 +72,7 @@ Da se nastavitve upoštevajo, ponovno zaženemo delovanja omrežnih kartic na na
 
     systemctl restart networking.service
 
-Sedaj smo pripravili vse potrebno, da namestimo in nastavimo [DHCP](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) strežnik, ki bo dodeljeval IP omrežne naslove avtomatsko vsem računalnikom v omrežju `Notranje omrežje`. Specifikacijo protokola lahko najdemo v [RFC2131](https://www.rfc-editor.org/rfc/rfc2131). Z upravljalcem paketov lahko iščemo po imenih paketov, ki jih lahko namestimo z ukazom `apt search NAME`. Namestimo na primer, implementacijo DHCP strežnika `isc-dhcp-server`.
+Sedaj smo pripravili vse potrebno, da namestimo in nastavimo [DHCP](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) strežnik, ki bo dodeljeval IP omrežne naslove avtomatsko vsem računalnikom v omrežju `Notranje omrežje`. Specifikacijo protokola lahko najdemo v [RFC2131](https://www.rfc-editor.org/rfc/rfc2131). Z upravljavcem paketov lahko iščemo po imenih paketov, ki jih lahko namestimo z ukazom `apt search NAME`. Namestimo na primer, implementacijo DHCP strežnika `isc-dhcp-server`.
 
     apt update
     apt install isc-dhcp-server

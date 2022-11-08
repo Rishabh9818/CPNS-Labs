@@ -29,7 +29,7 @@ Ukaz [`curl`](https://linux.die.net/man/1/curl) nam omogoča prenos podatkov s s
 
 ### 1. Naloga
 
-Namestimo TFTP strežnik preko upravljalca paketov nameščene Linux distribucije na prvi navidezni računalnik z DHCP strežnikom. [TFTP](https://en.wikipedia.org/wiki/Trivial_File_Transfer_Protocol) je preprost protokol za prenos datotek preko omrežja na oddaljene računalnike, katerega specifikacijo lahko najdemo v [RFC 1350](https://www.rfc-editor.org/rfc/rfc1350). Na primer, namestimo `tftpd` implementacijo protokola TFTP (obstajajo še `tftpd-hpa`, `atftpd` ...).
+Namestimo TFTP strežnik preko upravljavca paketov nameščene Linux distribucije na prvi navidezni računalnik z DHCP strežnikom. [TFTP](https://en.wikipedia.org/wiki/Trivial_File_Transfer_Protocol) je preprost protokol za prenos datotek preko omrežja na oddaljene računalnike, katerega specifikacijo lahko najdemo v [RFC 1350](https://www.rfc-editor.org/rfc/rfc1350). Na primer, namestimo `tftpd` implementacijo protokola TFTP (obstajajo še `tftpd-hpa`, `atftpd` ...).
 
     apt install tftpd
 
@@ -130,6 +130,8 @@ Preskusimo delovanje HTTP strežnika lokalno.
     </html>
 
 Sedaj dodamo naš HTTP strežnik v nastavitveno datoteko `/etc/inetd.conf` ter nato ponovno zaženemo storitev `inetd`. Za ime storitve izberemo `http` oz. lahko tudi vrata `80`. Za tip vtičnika izberemo `stream`, ker bomo uporabljali Transmission Control Protocol ([TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol)), kar pomeni, da za protokol izberemo `tcp`. Strežnik nastavimo, da je vedno na voljo in ne čaka na zaključek programa, ki ga poganja, z nastavitvijo `nowait`. Nato izberemo uporabnika, ki ima pravico za izvajanje našega enostavnega HTTP strežnika, na primer `aleks`. Sledi absolutna pot do našega programa, ki je `/home/aleks/server.sh` in argumenti, ki se podajo pri zagonu programa. Prvi argument je po konvenciji kar ime programa `server.sh`. Drugi argument pa kaže na mapo v kateri se nahaja naš `index.html`, ki je `/home/student`.
+
+    nano /etc/inetd.conf
 
     http stream tcp	nowait aleks /home/aleks/server.sh server.sh /home/aleks
 
