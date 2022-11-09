@@ -87,7 +87,7 @@ In the `/etc/dhcp/dhcpd.conf` file, we set which network will be managed by the 
     nano /etc/dhcp/dhcpd.conf
 	
     subnet 10.0.0.0 netmask 255.255.255.0 {
-	  range 10.0.0.100 10.0.1.200;
+	  range 10.0.0.100 10.0.0.200;
 	  option routers 10.0.0.1;
 	  option domain-name-servers 1.1.1.1;
       filename "pxelinux.0";
