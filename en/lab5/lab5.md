@@ -29,7 +29,7 @@ The kernel and initial virtual disk are also obtained from the installation imag
 
 Let's check the contents of the bootloader configuration file.
 
-    nano /pxelinux.cfg/default
+    nano pxelinux.cfg/default
 
     label live
       menu label Start Linux Mint

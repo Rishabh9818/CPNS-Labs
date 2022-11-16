@@ -29,7 +29,7 @@ Jedro in začetni navidezni disk prav tako pridobimo z namestitvene slike izbran
 
 Preverimo vsebino nastavitvene datoteke sistemskega nalagalnika.
 
-    nano /pxelinux.cfg/default
+    nano pxelinux.cfg/default
 
     label live
       menu label Start Linux Mint
