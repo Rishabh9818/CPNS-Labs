@@ -2,7 +2,7 @@
 
 ## Instructions
 
-0. We will use the network and virtual machines from the previous exercises.
+0. Use the network and virtual machines from the previous exercises.
 1. Install or customize a DHCP server for running the bootloader over the network?
 2. Install or customize a TFTP server for running the bootloader over the network?
 3. Prepare the bootloader with the associated files in the folder served by the TFTP server.

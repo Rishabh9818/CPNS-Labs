@@ -2,7 +2,7 @@
 
 ## Navodila
 
-0. Uporabili bomo omrežje in navidezne računalnike iz 2. vaje. 
+0. Uporabite omrežje in navidezne računalnike iz 2. vaje. 
 1. Namestite Trivial File Transfer Protocol (TFTP) strežnik in ugotovite kako deluje (`tftpd`)?
 2. Ugotovite kaj je `inetd` in kako deluje?
 3. Implementirajte preprost Hypertext Transfer Protocol (HTTP) strežnik, ki deluje preko `inetd`.

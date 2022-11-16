@@ -2,7 +2,7 @@
 
 ## Instructions
 
-0. We will use the network and virtual machines from 2. lab.
+0. Use the network and virtual machines from 2. lab.
 1. Install a Trivial File Transfer Protocol (TFTP) server and find out how it works (`tftpd`)?
 2. Find out what `inetd` is and how it works?
 3. Implement a simple Hypertext Transfer Protocol (HTTP) server running through `inetd`.
