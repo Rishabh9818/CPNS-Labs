@@ -2,11 +2,11 @@
 
 ## Instructions
 
-0. Use the network and virtual machines from the previous exercises.
+0. Use the network and virtual machines from the previous labs.
 1. Prepare the kernel and initial virtual disk (initrd) in the correct folder.
-2. Correct the system bootloader configuration file to boot the kernel and initial virtual disk.
+2. Update the system bootloader configuration file to boot the kernel and initial virtual disk.
 3. Prepare a Network File System (NFS) server to provide a network drive.
-4. Correct the bootloader configuration file to use a network drive to boot the operating system.
+4. Update the bootloader configuration file to use a network drive to boot the operating system.
 
 ## Additional information
 
