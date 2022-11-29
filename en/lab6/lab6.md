@@ -142,3 +142,28 @@ To receive SNMP data, we need to add our server by selecting `Create\New Device`
 We now access the data via the tabs on the top left, for example, `Graphs`.
 
 ![Display SNMP data with graphs.](images/lab6-cacti6.png)
+
+If we have a problem starting the `apache2` server, we check if port `80` is already in use with the `netstat` command and stop the process that uses it.
+
+    apt install net-tools
+
+    netstat -plnt
+
+    Active Internet connections (only servers)
+    Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+    tcp        0      0 0.0.0.0:57161           0.0.0.0:*               LISTEN      635/rpc.mountd      
+    tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN      767/mariadbd        
+    tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN      1/init              
+    tcp        0      0 0.0.0.0:41681           0.0.0.0:*               LISTEN      635/rpc.mountd      
+    tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      618/cupsd           
+    tcp        0      0 0.0.0.0:35931           0.0.0.0:*               LISTEN      635/rpc.mountd      
+    tcp        0      0 0.0.0.0:33949           0.0.0.0:*               LISTEN      -                   
+    tcp        0      0 0.0.0.0:2049            0.0.0.0:*               LISTEN      -                   
+    tcp6       0      0 :::54603                :::*                    LISTEN      635/rpc.mountd      
+    tcp6       0      0 :::47405                :::*                    LISTEN      635/rpc.mountd      
+    tcp6       0      0 :::111                  :::*                    LISTEN      1/init              
+    tcp6       0      0 :::80                   :::*                    LISTEN      957/apache2         
+    tcp6       0      0 :::60819                :::*                    LISTEN      635/rpc.mountd      
+    tcp6       0      0 :::46549                :::*                    LISTEN      -                   
+    tcp6       0      0 ::1:631                 :::*                    LISTEN      618/cupsd           
+    tcp6       0      0 :::2049                 :::*                    LISTEN      - 
