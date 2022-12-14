@@ -45,7 +45,7 @@ Za prenos podatkov VPN ustvari šifriran tunel, ki v našem primeru pričakuje d
 
     apt install openssh-server
 
-    chown aleks.aleks key.key
+    chown aleks:aleks key.key
 
 Na drugem navideznem računalniku uporabimo ukaz `scp`, da varno prenesemo ključ s prvega navideznega računalnika.
 

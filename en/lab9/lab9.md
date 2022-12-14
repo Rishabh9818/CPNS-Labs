@@ -45,7 +45,7 @@ For data transfer, the VPN creates an encrypted tunnel, which in our case expect
 
     apt install openssh-server
 
-    chown aleks.aleks key.key
+    chown aleks:aleks key.key
 
 On the second virtual machine, we use the `scp` command to securely transfer the key from the first virtual machine.
 
