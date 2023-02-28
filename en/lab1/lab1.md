@@ -28,11 +28,25 @@ Important reserved address blocks on an Internet network:
 | 192.168.0.0/16 | 192.168.0.0 - 192.168.255.255 | 65.536           | Local addresses      |
 | 224.0.0.0/4    | 224.0.0.0 - 239.255.255.255   | 268435456        | Multicast addresses  |
 
-The ['ip'](https://linux.die.net/man/8/ip) command allows us to display and manage network devices, network adapters, tunnels, and routing.
+The ['ip'](https://man7.org/linux/man-pages/man8/ip.8.html) command allows us to display and manage network devices, network adapters, tunnels, and routing.
 
-The ['ping'](https://linux.die.net/man/8/ping) command allows us to send ICMP ECHO_REQUEST packets to the selected network device based on its IP address.
+The ['ping'](https://man7.org/linux/man-pages/man8/ping.8.html) command allows us to send ICMP ECHO_REQUEST packets to the selected network device based on its IP address.
 
 The ['apt-get'](https://linux.die.net/man/8/apt-get) command is a package manager that allows us to install, modify, and delete programs, and search software through accessible repositories.
+
+The [`su`](https://man7.org/linux/man-pages/man1/su.1.html) command allows us to change the user by running commands in the shell.
+
+We use the [`mkdir`](https://man7.org/linux/man-pages/man1/mkdir.1.html) command to create new directories.
+
+The [`mount`](https://man7.org/linux/man-pages/man8/mount.8.html) command allows us to mount a file system to the operating system.
+
+The command [`cd`](https://man7.org/linux/man-pages/man1/cd.1p.html) allows us to change the working directory.
+
+The [`sh`](https://man7.org/linux/man-pages/man1/sh.1p.html) command executes Standard Common Language (Shell) commands.
+
+The command [`shutdown`](https://man7.org/linux/man-pages/man8/shutdown.8.html) allows us to shutdown or restart the operating system.
+
+The command [`ls`](https://man7.org/linux/man-pages/man1/ls.1.html) prints the contents of any directory.
 
 ## Detailed instructions
 

@@ -28,11 +28,25 @@ Pomembni rezervirani bloki naslovov v omrežju Internet:
 | 192.168.0.0/16 | 192.168.0.0 - 192.168.255.255 | 65.536       | Lokalni naslovi             |
 | 224.0.0.0/4    | 224.0.0.0 - 239.255.255.255   | 268435456    | Naslovi za razpošiljanje    |
 
-Ukaz [`ip`](https://linux.die.net/man/8/ip) nam omogoča prikaz ter upravljanje z omrežnimi napravami, omrežnimi karticami, tuneli in usmerjanjem.
+Ukaz [`ip`](https://man7.org/linux/man-pages/man8/ip.8.html) nam omogoča prikaz ter upravljanje z omrežnimi napravami, omrežnimi karticami, tuneli in usmerjanjem.
 
-Ukaz [`ping`](https://linux.die.net/man/8/ping) nam omogoča pošiljanje ICMP ECHO_REQUEST paketkov izbrani omrežni napravi na podlagi njegovega IP naslova.
+Ukaz [`ping`](https://man7.org/linux/man-pages/man8/ping.8.html) nam omogoča pošiljanje ICMP ECHO_REQUEST paketkov izbrani omrežni napravi na podlagi njegovega IP naslova.
 
 Ukaz [`apt-get`](https://linux.die.net/man/8/apt-get) je upravljalec paketov, ki nam omogoča namestitev, spreminjanje in brisanje programov ter iskanje programske opreme po dostopnih repozitorijih.
+
+Ukaz [`su`](https://man7.org/linux/man-pages/man1/su.1.html) nam omogoča spremembo uporabnika z izvajanje ukazov v ukazni lupini.
+
+Ukaz [`mkdir`](https://man7.org/linux/man-pages/man1/mkdir.1.html) uporabljamo za ustvarjanje novih direktorijev.
+
+Ukaz [`mount`](https://man7.org/linux/man-pages/man8/mount.8.html) nam omogoča priključitev datotečnega sistema v operacijski sistem.
+
+Ukaz [`cd`](https://man7.org/linux/man-pages/man1/cd.1p.html) nam omogoča spremembo direktorija v katerem se trenutno nahajamo.
+
+Ukaz [`sh`](https://man7.org/linux/man-pages/man1/sh.1p.html) izvaja ukaze standardnega skupnega jezika (Shell).  
+
+Ukaz [`shutdown`](https://man7.org/linux/man-pages/man8/shutdown.8.html) nam omogoča zaustavitev ali ponovni zagon operacijskega sistema.
+
+Ukaz [`ls`](https://man7.org/linux/man-pages/man1/ls.1.html) nam izpiše vsebino poljubnega direktorija.
 
 ## Podrobna navodila
 
