@@ -131,6 +131,7 @@ On the second virtual computer, you can also manually add DNS servers in the `/e
 On the second virtual machine, we can renew DHCP for a new IP address to also obtain new DNS settings.
 
     dhclient -r enp0s3
+    dhclient enp0s3
 
 ### 3. Task
 
@@ -166,7 +167,9 @@ To take into account the changes in Linux kernel parameters, use the `sysctl` co
 
     sysctl -p
 
-Next, we set up the translation of IP network addresses, which will be performed by our first virtual computer.
+With the packet manager, we install the `iptables` package, which represents a firewall and allows mapping IP addresses to network addresses by our first virtual machine.
+
+    apt install iptables
 
     iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
 

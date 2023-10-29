@@ -43,6 +43,8 @@ We can see that `tftpd` needs `inetd` to run. At the moment, the last parameter 
     
     ls: cannot access '/srv/tftp': No such file or directory
 
+In case you cannot find the `tftpd` package with the package manager, then install the `tftpd-hpa` package and follow the instruction from here.
+
 The mentioned folder serves to store files that the TFTP server will be able to transfer over the network, so we create it and save any file in it.
 
     mkdir /srv/tftp
@@ -128,6 +130,11 @@ Let's test the operation of the HTTP server locally.
             <p>It works!</p>
         </body>
     </html>
+
+
+If we don't already have an `inetd` package installed, we install it with a package manager.
+
+    apt install openbsd-inetd
 
 Now add our HTTP server to the configuration file `/etc/inetd.conf` and then restart the `inetd` service. For the name of the service, select `http` or the port `80` can also be used. We choose `stream` for the socket type because we will be using Transmission Control Protocol ([TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol)), which means we choose `tcp` for the protocol. We set the server so that it is always available and does not wait for the program it ran to finish using the `nowait` setting. Then we select a user that has the permissions to run our simple HTTP server, for example `aleks`. The next parameter is the absolute path to our program, which is `/home/aleks/server.sh` and the arguments that are given when starting the program. The first argument is, by convention, the very name of the `server.sh` program. The second argument points to the folder where our `index.html` is located, which is `/home/aleks`.
 

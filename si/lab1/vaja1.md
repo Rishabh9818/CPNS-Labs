@@ -90,7 +90,7 @@ Pred prvim zagonom lahko še bolj natančno nastavimo parametre našega navidezn
 
 ![Nastavitveni meni `Sistem\Procesor` kjer lahko nastavimo število procesorskih jeder, ki jih lahko uporablja naš navidezni računalnik.](slike/vaja1-vbox8.png)
 
-Sedaj smo končali z nastavitvami našega novega virtualnega računalnika in ga lahko poženemo s pritiskom na gumb `Zaženi`. Ob prvem zagonu se nam avtomatsko prikaže okno za izbiro namestitvene slike operacijskega sistema, ki ga želimo namestiti (npr. [Debian](https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/11.5.0+nonfree/amd64/iso-cd/)). Namestitveno sliko operacijskega sistema, ki se nahaja na disku lahko izberemo s klikom na gumb z ikono rumene mape z zeleno puščico. Drugače pa lahko do izbire namestitvene slike operacijskega sistema pridemo tudi če gremo v oknu našega navideznega računalnika v meni `Naprave\Optični pogoni\Izberi datoteko diska ...`.
+Sedaj smo končali z nastavitvami našega novega virtualnega računalnika in ga lahko poženemo s pritiskom na gumb `Zaženi`. Ob prvem zagonu se nam avtomatsko prikaže okno za izbiro namestitvene slike operacijskega sistema, ki ga želimo namestiti (npr. [Debian](https://www.debian.org/)). Namestitveno sliko operacijskega sistema, ki se nahaja na disku lahko izberemo s klikom na gumb z ikono rumene mape z zeleno puščico. Drugače pa lahko do izbire namestitvene slike operacijskega sistema pridemo tudi če gremo v oknu našega navideznega računalnika v meni `Naprave\Optični pogoni\Izberi datoteko diska ...`.
 
 ![Okno za izbiro izbiro namestitvene slike operacijskega sistema.](slike/vaja1-vbox15.png)
 

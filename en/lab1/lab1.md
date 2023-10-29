@@ -90,7 +90,7 @@ Before the first launch, we can set the parameters of our virtual machine even m
 
 ![Settings menu `System\Processor` where we can set the number of processor cores that our virtual computer can use.](images/lab1-vbox8.png)
 
-We have now finished setting up our new virtual machine and can start it by pressing the `Start` button. At the first start, a window will automatically appear for selecting the installation image of the operating system we want to install (e.g. [Debian](https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/11.5.0+nonfree/amd64/iso-cd/)). The installation image of the operating system located on the disk can be selected by clicking on the button with the icon of the yellow folder with a green arrow. Otherwise, we can get to the selection of the installation image of the operating system if we go to the menu `Devices\Optical drives\Select disk file...` in the window of our virtual computer.
+We have now finished setting up our new virtual machine and can start it by pressing the `Start` button. At the first start, a window will automatically appear for selecting the installation image of the operating system we want to install (e.g. [Debian](https://www.debian.org/)). The installation image of the operating system located on the disk can be selected by clicking on the button with the icon of the yellow folder with a green arrow. Otherwise, we can get to the selection of the installation image of the operating system if we go to the menu `Devices\Optical drives\Select disk file...` in the window of our virtual computer.
 
 ![Window for choosing the installation image of the operating system.](images/lab1-vbox15.png)
 

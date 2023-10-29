@@ -43,6 +43,8 @@ Vidimo, da `tftpd` potrebuje `inetd`, da deluje. Trenutno je za nas pomemben zad
     
     ls: cannot access '/srv/tftp': No such file or directory
 
+V primeru, da z upravljalcem paketov ne najdete paketa `tftpd` potem namestite paket `tftpd-hpa` in sledite navodilom od tukaj naprej.
+
 Omenjena mapa služi za shranjevanje datotek, ki jih bo strežnik TFTP lahko prenašal preko omrežja, zato jo ustvarimo in vanj shranimo poljubno datoteko.
 
     mkdir /srv/tftp
@@ -128,6 +130,10 @@ Preskusimo delovanje HTTP strežnika lokalno.
             <p>It works!</p>
         </body>
     </html>
+
+Če slučajno še nimamo nameščenega `inetd` programa, ga namestimo z upravljalcem paketov.
+
+    apt install openbsd-inetd
 
 Sedaj dodamo naš HTTP strežnik v nastavitveno datoteko `/etc/inetd.conf` ter nato ponovno zaženemo storitev `inetd`. Za ime storitve izberemo `http` oz. lahko tudi vrata `80`. Za tip vtičnika izberemo `stream`, ker bomo uporabljali Transmission Control Protocol ([TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol)), kar pomeni, da za protokol izberemo `tcp`. Strežnik nastavimo, da je vedno na voljo in ne čaka na zaključek programa, ki ga poganja, z nastavitvijo `nowait`. Nato izberemo uporabnika, ki ima pravico za izvajanje našega enostavnega HTTP strežnika, na primer `aleks`. Sledi absolutna pot do našega programa, ki je `/home/aleks/server.sh` in argumenti, ki se podajo pri zagonu programa. Prvi argument je po konvenciji kar ime programa `server.sh`. Drugi argument pa kaže na mapo v kateri se nahaja naš `index.html`, ki je `/home/student`.
 

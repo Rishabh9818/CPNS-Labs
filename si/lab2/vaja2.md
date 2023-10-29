@@ -12,7 +12,7 @@ Ukaz [`sysctl`](https://linux.die.net/man/8/sysctl) nam omogoča upravljanje s p
 
 Navodila za nastavitev omrežja v nastavitveni datoteki [`/etc/network/interfaces`](https://manpages.debian.org/stretch/ifupdown/interfaces.5.en.html).
 
-Požarni zid [`iptables`](https://linux.die.net/man/8/iptables) oz. [`nf_tables`](https://manpages.debian.org/buster/nftables/nft.8.en.html) omogoča upravljanje in filtriranje omrežnih paketov, ki vstopajo ali prehajajo posamezni omrežni vmesnik.
+Požarni zid [`nftables`](https://manpages.debian.org/buster/nftables/nft.8.en.html) omogoča upravljanje in filtriranje omrežnih paketov, ki vstopajo ali prehajajo posamezni omrežni vmesnik.
 
 Ukaz [`journalctl`](https://www.man7.org/linux/man-pages/man1/journalctl.1.html) nam omogoča branje `systemd` beležk oz logov.
 
@@ -131,6 +131,7 @@ Na drugemu navideznemu računalniku lahko DNS strežnike dodamo tudi ročno v da
 Na drugem navideznem računalniku, lahko ponovno zaprosimo DHCP za nov IP naslov in tako pridobimo nove nastavitve za DNS.
 
     dhclient -r enp0s3
+    dhclient enp0s3
 
 ### 3. Naloga
 
@@ -166,7 +167,9 @@ Da se sprememba parametrov jedra Linux-a upošteva, uporabimo ukaz `sysctl`.
 
     sysctl -p
 
-Nato pa še nastavimo preslikovanje IP omrežni naslovov, ki ga bo izvedel naš prvi navidezni računalnik.
+Z upravljalcem paketov namestimo paket `iptables`, ki predstavlja požarni zid in omogoča preslikovanje IP omrežni naslovov, ki ga bo izvedel naš prvi navidezni računalnik.
+
+    apt install iptables
 
     iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
 
