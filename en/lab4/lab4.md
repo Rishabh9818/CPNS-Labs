@@ -132,6 +132,19 @@ Let's create a `/srv/tftp` folder, which TFTP will offer over the network.
 
     mkdir /srv/tftp
 
+If you cannot find the `tftpd` package with the package manager, then install the `tftpd-hpa` package and add the `-v` flag and the `-c` flag in the `/etc/default/tftpd-hpa` configuration file to enable automatic availability of newly added files in the `/srv/tftp` and enable more verbose logging.
+
+    apt install tftpd-hpa
+
+    nano /etc/default/tftpd-hpa
+
+    # /etc/default/tftpd-hpa
+
+    TFTP_USERNAME="tftp"
+    TFTP_DIRECTORY="/srv/tftp"
+    TFTP_ADDRESS=":69"
+    TFTP_OPTIONS="-v -c --secure"
+
 ### 3. Task
 
 It we need a system bootloader that allows booting over the network. For example, let's use `pxelinux` by first obtaining it with a package manager and then moving it to `/srv/tftp` to make it accessible via TFTP on the network.
@@ -150,7 +163,7 @@ We now start the second virtual computer and it starts the PXE environment for b
 
 ![Boot the virtual machine into a PXE network boot environment.](images/lab4-vbox2.png)
 
-Communication between the server and the client can also be tracked with logs that are updated automatically. First we see obtaining an IP address via the DHCP server, then via the TFTP protocol the download of the system loader `pxelinux.0` and then the search for the file `ldlinux.c32` in various places in the file system. Because the `ldlinux.c32` file does not exist, the network boot process fails.
+Communication between the server and the client can also be tracked with logs in `/var/log/syslog` that are updated automatically. First we see obtaining an IP address via the DHCP server, then via the TFTP protocol the download of the system loader `pxelinux.0` and then the search for the file `ldlinux.c32` in various places in the file system. Because the `ldlinux.c32` file does not exist, the network boot process fails.
 
     tail -f /var/log/syslog
 
@@ -175,6 +188,27 @@ Communication between the server and the client can also be tracked with logs th
     Nov  3 15:27:09 debian tftpd[3315]: tftpd: trying to get file: /syslinux/ldlinux.c32
     Nov  3 15:27:09 debian in.tftpd[3316]: connect from 10.0.0.100 (10.0.0.100)
     Nov  3 15:27:09 debian tftpd[3317]: tftpd: trying to get file: /ldlinux.c32
+
+In newer versions of the Linux operating system, events are recorded in 'systemd' logs, which are accessed via the `journalctl` command. The `-u` flag enables following of the events of only a particular program, and the `-f` flag allows us to automatically display new records.
+
+    journalctl -u tftpd-hpa.service -f
+
+    Oct 31 19:18:18 debian systemd[1]: Starting tftpd-hpa.service - LSB: HPA's tftp server...
+    Oct 31 19:18:18 debian tftpd-hpa[786]: Starting HPA's tftpd: in.tftpd.
+    Oct 31 19:18:18 debian systemd[1]: Started tftpd-hpa.service - LSB: HPA's tftp server.
+    Oct 31 19:34:02 debian in.tftpd[2776]: RRQ from 10.0.1.100 filename pxelinux.0
+    Oct 31 19:34:02 debian in.tftpd[2777]: RRQ from 10.0.1.100 filename ldlinux.c32
+    Oct 31 19:34:02 debian in.tftpd[2777]: sending NAK (1, File not found) to 10.0.1.100
+    Oct 31 19:34:02 debian in.tftpd[2778]: RRQ from 10.0.1.100 filename /boot/isolinux/ldlinux.c32
+    Oct 31 19:34:02 debian in.tftpd[2778]: sending NAK (1, File not found) to 10.0.1.100
+    Oct 31 19:34:02 debian in.tftpd[2779]: RRQ from 10.0.1.100 filename /isolinux/ldlinux.c32
+    Oct 31 19:34:02 debian in.tftpd[2779]: sending NAK (1, File not found) to 10.0.1.100
+    Oct 31 19:34:02 debian in.tftpd[2780]: RRQ from 10.0.1.100 filename /boot/syslinux/ldlinux.c32
+    Oct 31 19:34:02 debian in.tftpd[2780]: sending NAK (1, File not found) to 10.0.1.100
+    Oct 31 19:34:02 debian in.tftpd[2781]: RRQ from 10.0.1.100 filename /syslinux/ldlinux.c32
+    Oct 31 19:34:02 debian in.tftpd[2781]: sending NAK (1, File not found) to 10.0.1.100
+    Oct 31 19:34:02 debian in.tftpd[2782]: RRQ from 10.0.1.100 filename /ldlinux.c32
+    Oct 31 19:34:02 debian in.tftpd[2782]: sending NAK (1, File not found) to 10.0.1.100
 
 The missing file is part of the modules needed to run the bootloader, which also needs a configuration file. The easiest way to get to the files is to take the installation image of a Linux distribution that uses the `isolinux` bootloader and copy them to the `/srv/tftp` folder. Later, we will use the rest of the files to successfully boot the operating system. For example, we download the installation image of the distribution [Mint](https://linuxmint.com/download.php) and insert it into the first virtual machine by selecting it in the menu `Devices\Optical drives\Select disk file ...`. The image is now inserted and we access it via `/dev/sr0`, to access the files, we still have to mount it with the `mount` command in any empty folder.
 

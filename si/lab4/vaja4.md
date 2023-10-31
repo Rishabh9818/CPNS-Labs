@@ -132,6 +132,19 @@ Ustvarimo mapo `/srv/tftp`, katero bo TFTP ponudil preko omrežja.
 
     mkdir /srv/tftp
 
+V primeru, da z upravljalcem paketov ne najdete paketa `tftpd` potem namestite paket `tftpd-hpa` in v nastavitveni datoteki `/etc/default/tftpd-hpa` omogočite beleženje z zastavico `-v` in dostopnost novo dodanih datotek v mapi `/srv/tftp` z zastavico `-c`.
+
+    apt install tftpd-hpa
+
+    nano /etc/default/tftpd-hpa
+
+    # /etc/default/tftpd-hpa
+
+    TFTP_USERNAME="tftp"
+    TFTP_DIRECTORY="/srv/tftp"
+    TFTP_ADDRESS=":69"
+    TFTP_OPTIONS="-v -c --secure"
+
 ### 3. Naloga
 
 Sedaj potrebuje sistemski nalagalnik, ki omogoča zagon preko omrežja. Na primer, uporabimo `pxelinux`, tako da ga najprej pridobimo z upravljavcem paketov in nato prestavimo v mapo `/srv/tftp` da postane dostopen preko TFTP protokola v omrežju.
@@ -150,7 +163,7 @@ Drugi navidezni računalnik sedaj poženemo in ta požene PXE okolje za zagon pr
 
 ![Zagon navideznega računalnika v PXE okolje za omrežni zagon.](slike/vaja4-vbox2.png)
 
-Komunikaciji med strežnikom in klientom lahko sledimo tudi z beležkami, ki se samodejno posodabljajo. Najprej vidimo pridobivanje IP naslova preko DHCP strežnika, nato preko protokola TFTP prenos sistemskega nalagalnika `pxelinux.0` in nato iskanje datoteke `ldlinux.c32` na različnih mestih v datotečnem sistemu. Ker datoteke `ldlinux.c32` ni, se postopek omrežnega zagona sistema neuspešno zaključi.  
+Komunikaciji med strežnikom in klientom lahko sledimo tudi z beležkami v `/var/log/syslog`, ki se samodejno posodabljajo. Najprej vidimo pridobivanje IP naslova preko DHCP strežnika, nato preko protokola TFTP prenos sistemskega nalagalnika `pxelinux.0` in nato iskanje datoteke `ldlinux.c32` na različnih mestih v datotečnem sistemu. Ker datoteke `ldlinux.c32` ni, se postopek omrežnega zagona sistema neuspešno zaključi.  
 
     tail -f /var/log/syslog
 
@@ -175,6 +188,27 @@ Komunikaciji med strežnikom in klientom lahko sledimo tudi z beležkami, ki se 
     Nov  3 15:27:09 debian tftpd[3315]: tftpd: trying to get file: /syslinux/ldlinux.c32
     Nov  3 15:27:09 debian in.tftpd[3316]: connect from 10.0.0.100 (10.0.0.100)
     Nov  3 15:27:09 debian tftpd[3317]: tftpd: trying to get file: /ldlinux.c32
+
+V novejših različicah operacijskega sistema Linux se pa beležke beležijo v beležkah programa `systemd`, do katerih dostopamo preko ukaza `journalctl`. Zastavica `-u` nam nastavi spremljanje beležk le določenega programa, ter zastavica `-f` nam omogoča samodejno prikazovanje novih zapisov.
+
+    journalctl -u tftpd-hpa.service -f
+
+    Oct 31 19:18:18 debian systemd[1]: Starting tftpd-hpa.service - LSB: HPA's tftp server...
+    Oct 31 19:18:18 debian tftpd-hpa[786]: Starting HPA's tftpd: in.tftpd.
+    Oct 31 19:18:18 debian systemd[1]: Started tftpd-hpa.service - LSB: HPA's tftp server.
+    Oct 31 19:34:02 debian in.tftpd[2776]: RRQ from 10.0.1.100 filename pxelinux.0
+    Oct 31 19:34:02 debian in.tftpd[2777]: RRQ from 10.0.1.100 filename ldlinux.c32
+    Oct 31 19:34:02 debian in.tftpd[2777]: sending NAK (1, File not found) to 10.0.1.100
+    Oct 31 19:34:02 debian in.tftpd[2778]: RRQ from 10.0.1.100 filename /boot/isolinux/ldlinux.c32
+    Oct 31 19:34:02 debian in.tftpd[2778]: sending NAK (1, File not found) to 10.0.1.100
+    Oct 31 19:34:02 debian in.tftpd[2779]: RRQ from 10.0.1.100 filename /isolinux/ldlinux.c32
+    Oct 31 19:34:02 debian in.tftpd[2779]: sending NAK (1, File not found) to 10.0.1.100
+    Oct 31 19:34:02 debian in.tftpd[2780]: RRQ from 10.0.1.100 filename /boot/syslinux/ldlinux.c32
+    Oct 31 19:34:02 debian in.tftpd[2780]: sending NAK (1, File not found) to 10.0.1.100
+    Oct 31 19:34:02 debian in.tftpd[2781]: RRQ from 10.0.1.100 filename /syslinux/ldlinux.c32
+    Oct 31 19:34:02 debian in.tftpd[2781]: sending NAK (1, File not found) to 10.0.1.100
+    Oct 31 19:34:02 debian in.tftpd[2782]: RRQ from 10.0.1.100 filename /ldlinux.c32
+    Oct 31 19:34:02 debian in.tftpd[2782]: sending NAK (1, File not found) to 10.0.1.100
 
 Manjkajoča datoteka je del modulov, ki so potrebni za zagon sistemskega nalagalnika, ki pa potrebuje tudi nastavitveno datoteko. Do datotek najlažje pridemo, tako da vzamemo namestitveno sliko Linux distribucije, ki uporablja `isolinux` sistemski nalagalnik in jih prekopiramo v mapo `/srv/tftp`. Kasneje bomo uporabili še ostale datoteke, da uspešno zaženemo operacijski sistem do konca. Na primer, prenesemo namestitveno sliko distribucije [Mint](https://linuxmint.com/download.php) in ga vstavimo v prvi navidezni računalnik, tako da jo izberemo v meniju `Naprave\Optični pogoni\Izberi datoteko diska ...`. Slika je sedaj vstavljena in do nje dostopamo preko `/dev/sr0`, za dostop do datotek, jo moramo pa še priključiti z ukazom `mount` v poljubno prazno mapo. 
 
