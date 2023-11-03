@@ -104,7 +104,9 @@ Da se sprememba parametrov jedra Linux-a upošteva, uporabimo ukaz `sysctl`.
 
     sysctl -p
 
-Nato pa še nastavimo preslikovanje IP omrežni naslovov.
+Nato pa še nastavimo preslikovanje IP omrežni naslovov. Če paketa `iptables` še nimamo nameščenega, ga namestimo z upravljalcem paketov operacijskega sistema.
+
+    apt install iptables
 
     iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
 

@@ -104,7 +104,9 @@ To take into account the changes in Linux kernel parameters, use the `sysctl` co
 
     sysctl -p
 
-Then we set the IP network address translation.
+Then we set the IP network address translation. If we do not already have the `iptables` package installed, we install it with the package manager of the operating system.
+
+    apt install iptables
 
     iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
 
