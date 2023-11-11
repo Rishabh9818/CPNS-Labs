@@ -85,11 +85,7 @@ Glavna pomanjkljivost protokola verzije `SNMPv1` je, da ne podpira overjanja (an
 
     systemctl stop snmpd.service
 
-    mkdir /snmp
-
     net-snmp-create-v3-user -ro -a SHA -A kpovkaboom -x AES -X kpovkaboom testuser
-
-    cp /snmp/snmpd.conf /usr/share/snmp/snmpd.conf
 
 Preverimo v nastavitvenih datotekah `/var/lib/snmp/snmpd.conf` in `/usr/share/snmp/snmpd.conf`, če se je uporabnik pravilno ustvaril in nato ponovno zaženemo SNMP strežnik ter preskusimo delovanje z ukazom `snmpwalk`.
 
@@ -97,7 +93,7 @@ Preverimo v nastavitvenih datotekah `/var/lib/snmp/snmpd.conf` in `/usr/share/sn
 
     createUser testuser SHA "kpovkaboom" AES "kpovkaboom"
 
-    nano /usr/share/snmp/snmpd.conf
+    nano /etc/snmp/snmpd.conf
 
     rouser testuser
 
@@ -135,7 +131,7 @@ Do spletne aplikacije dostopamo preko brskalnika.
 
 V spletno aplikacijo se vpišemo z uporabniškim imenom `admin` in geslom, ki smo ga izbrali med namestitvijo.
 
-Za prejemanje SNMP podatkov moramo dodati naš strežnik, tako da pod menijem na levi izberemo `Create\New Device` in izpolnimo obrazec za dodajanje nove naprave. Na primer, za opis `Description` izberemo `SNMP Server`, za IP naslov `Hostname` izberemo IP naslov našega SNMP strežnika `10.0.0.1`, za verzijo protokola SNMP `SNMP Version` izberemo verzijo `Version 3`, za nivo varnosti `SNMP Security Level`izberemo `authPriv`, za uporabnika `SNMP Username (v3)` izberemo uporabnika, ki smo go prej ustvarili `testuser`, Za protokol za overjanje `SNMP Auth Protocol` izberemo `SHA` ter vnesemo geslo za oviranje pod `SNMP Password (v3)`, za protokol za šifriranje `SNMP Privacy Protocol (v3)` izberemo `AES` ter vnesem ključ za šifriranje pod `SNMP Privacy Passphrase` in vse ostale nastavitve pustimo na privzetih vrednostih. Obrazec potrdimo s pritiskom na gumb ustvari `Create` spodaj desno.
+Za prejemanje SNMP podatkov moramo dodati naš strežnik, tako da pod menijem na levi izberemo `Create\New Device` in izpolnimo obrazec za dodajanje nove naprave. Na primer, za opis `Description` izberemo `SNMP Server`, za IP naslov `Hostname` izberemo IP naslov našega SNMP strežnika `10.0.0.1`, za verzijo protokola SNMP `SNMP Version` izberemo verzijo `Version 3`, za nivo varnosti `SNMP Security Level`izberemo `authPriv`, za uporabnika `SNMP Username (v3)` izberemo uporabnika, ki smo go prej ustvarili `testuser`, Za protokol za overjanje `SNMP Auth Protocol` izberemo `SHA` ter vnesemo geslo za oviranje pod `SNMP Password (v3)`, za protokol za šifriranje `SNMP Privacy Protocol (v3)` izberemo `AES-128` ter vnesem ključ za šifriranje pod `SNMP Privacy Passphrase` in vse ostale nastavitve pustimo na privzetih vrednostih. Obrazec potrdimo s pritiskom na gumb ustvari `Create` spodaj desno.
 
 ![Nastavitev SNMP strežnika za dostop do podatkov.](slike/vaja6-cacti5.png)
 
